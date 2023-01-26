@@ -28,7 +28,24 @@ def books_show(book_id):
     resp, code = fns[request.method](request, book_id)
     return jsonify(resp), code
 
+@app.route('authors', methods=['GET','POST'])
+def authors_index():
+    fns = {
+        'GET': author.index,
+        'PATCH': author.create
+    }
+    res, code = fns[request.method](request)
+    return jsonify(resp), code
 
+@app.route('authors/<int:author_id>', methods=['GET', 'PATCH','DELETE'])
+def author_show(author_id):
+    fns = {
+        'GET': author.show,
+        'PATCH': author.update,
+        'DELETE': author.destroy
+    }
+    resp, code = fns[request.method](request, author_id)
+    return jsonify(resp), code
 
 if __name__ == "__main__":
     app.run(debug=True)
