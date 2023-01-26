@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    MyBooks | Books
+{% endblock title %}
+{% block heading %}
+    Books
+{% endblock heading %}
+{% block content %}
+    {% for book in books %}
+    <div class="book-card shadow" style="width: 18rem;">
+        <img src="{{ book['img'] }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ book['title'] }}</h5>
+          <p class="card-author">{{ book['author'] }}</p>
+          <a href="{{url_for('books_show', book_id=book['id'])}}" class="btn btn-primary">More Info</a>
+        </div>
+      </div>
+    {% endfor %}
+{% endblock content %}

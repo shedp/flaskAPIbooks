@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    MyBooks | Books
+{% endblock title %}
+{% block heading %}
+    Authors
+{% endblock heading %}
+{% block content %}
+    {% for author in authors %}
+    <div class="author-card shadow" style="width: 18rem;">
+          <h5 class="card-author">{{ author['author'] }}</h5>
+          <a href="{{url_for('author_show', author_id=author['id'])}}" class="btn btn-primary">More Info</a>
+      </div>
+    {% endfor %}
+{% endblock content %}
