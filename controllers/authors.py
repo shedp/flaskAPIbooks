@@ -1,4 +1,13 @@
-from data import books, authors
+# from data import authors
+from werkzeug.exceptions import BadRequest
+
+authors = [
+    {'id': 1, 'author': 'Christopher St John Springg', 'no_of_books': 1},
+    {'id': 2, 'author': 'Ian Rankin', 'no_of_books': 1},
+    {'id': 3, 'author': 'Robin Le Poidevin', 'no_of_books': 1},
+    {'id': 4, 'author': 'Stephen Hawking', 'no_of_books': 1},
+    {'id': 5, 'author': 'John Le Carre', 'no_of_books': 5}
+]
 
 def index(req):
     return [author for author in authors], 200
@@ -27,6 +36,6 @@ def update(req, id):
     return author, 200
 
 def destroy(req, id):
-    author = find_by_id(id)
+    author = findbyid(id)
     authors.remove(author)
     return author, 204
