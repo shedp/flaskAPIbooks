@@ -9,11 +9,13 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-    <h1>
-        {% block heading %}{% endblock heading %}
-    </h1>
-    <article>
-        {% block content %}{% endblock content %}
-    </article>
+    <main class="p-5">
+        <h1>
+            {% block heading %}{% endblock heading %}
+        </h1>
+        <article>
+            {% block content %}{% endblock content %}
+        </article>
+    </main>
 </body>
 </html>
