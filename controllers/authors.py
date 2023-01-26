@@ -1,13 +1,14 @@
 # from data import authors
 from werkzeug.exceptions import BadRequest
+from collections import Counter
 
-authors = [
-    {'id': 1, 'author': 'Christopher St John Springg', 'no_of_books': 1},
-    {'id': 2, 'author': 'Ian Rankin', 'no_of_books': 1},
-    {'id': 3, 'author': 'Robin Le Poidevin', 'no_of_books': 1},
-    {'id': 4, 'author': 'Stephen Hawking', 'no_of_books': 1},
-    {'id': 5, 'author': 'John Le Carre', 'no_of_books': 5}
-]
+import sys
+sys.path.append('..')
+from data.data import books
+
+author_names = Counter([book['author'] for book in books])
+# enumerate() allows you to iterate and keep track of index
+authors = [{'id': i+1, 'name': key, 'frequency': value} for i, (key, value) in enumerate(author_names.items())]
 
 def index(req):
     return [author for author in authors], 200
