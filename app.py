@@ -1,12 +1,22 @@
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 from werkzeug import exceptions
-from controllers import books
-from controllers import authors
+# from flask_navigation import Navigation
+
+import sys
+sys.path.append('..')
+from controllers import authors, books
 
 
 app = Flask(__name__)
 CORS(app)
+# nav = Navigation(app)
+
+# nav.Bar('top', [
+#     nav.Item('Home', 'home'),
+#     nav.Item('Books', 'books'),
+#     nav.Item('Author', 'author')
+# ])
 
 @app.route("/")
 def welcome():
@@ -19,7 +29,8 @@ def books_index():
         'POST': books.create
     }
     resp, code = fns[request.method](request)
-    return jsonify(resp), code
+    # return jsonify(resp), code
+    return render_template('books.html', books=resp)
 
 @app.route('/books/<int:book_id>', methods=['GET', 'PATCH','DELETE'])
 def books_show(book_id):
@@ -29,7 +40,8 @@ def books_show(book_id):
         'DELETE': books.destroy
     }
     resp, code = fns[request.method](request, book_id)
-    return jsonify(resp), code
+    # return jsonify(resp), code
+    return render_template('book.html', book=resp)
 
 @app.route('/authors', methods=['GET','POST'])
 def authors_index():
@@ -38,7 +50,8 @@ def authors_index():
         'PATCH': authors.create
     }
     resp, code = fns[request.method](request)
-    return jsonify(resp), code
+    # return jsonify(resp), code
+    return render_template('authors.html', authors=resp)
 
 @app.route('/authors/<int:author_id>', methods=['GET', 'PATCH','DELETE'])
 def author_show(author_id):
