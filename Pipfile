@@ -7,6 +7,8 @@ name = "pypi"
 flask = "*"
 flask-cors = "*"
 werkzeug = "*"
+pandas = "*"
+flask-navigation = "*"
 
 [dev-packages]
 
