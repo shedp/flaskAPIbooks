@@ -41,7 +41,17 @@ def books_show(book_id):
     }
     resp, code = fns[request.method](request, book_id)
     # return jsonify(resp), code
+    if request.method == 'PATCH':
+        return redirect(url_for('books_show', book_id=book_id))
     return render_template('book.html', book=resp)
+
+@app.route('/books/<int:book_id>/edit', methods=['GET'])
+def book_edit(book_id):
+    fns = {
+        'GET': books.show,
+    }
+    resp, code = fns[request.method](request, book_id)
+    return render_template('edit_book.html', book=resp)
 
 @app.route('/authors', methods=['GET','POST'])
 def authors_index():
@@ -53,7 +63,7 @@ def authors_index():
     # return jsonify(resp), code
     return render_template('authors.html', authors=resp)
 
-@app.route('/authors/<int:author_id>', methods=['GET', 'PATCH','DELETE'])
+@app.route('/authors/<int:author_id>', methods=['GET','PATCH','DELETE'])
 def author_show(author_id):
     fns = {
         'GET': authors.show,
