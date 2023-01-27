@@ -14,7 +14,7 @@
           <a href="{{url_for('authors_index')}}"><h4 class="card-author">{{ book['author'] }}</h4></a>
           <p class="card-text">Genre: {{ book['genre'] }}</p>
           <p class="card-text">{{ book['type'] }}, {{ book['status'] }}</p>
-          <a href="" class="btn btn-primary mx-auto">Edit</a>
+          <a href="{{url_for('book_edit', book_id=book['id'])}}" class="btn btn-primary mx-auto">Edit</a>
           <a href="" class="btn btn-danger mx-auto">Delete</a>
         </div>
       </div>
