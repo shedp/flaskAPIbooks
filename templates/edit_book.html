@@ -7,22 +7,22 @@
     {{ book.title }}
 {% endblock heading %}
 {% block content %}
-<form class="book-card shadow mx-auto p-4" style="width: 20rem;" method="patch" action="{{ url_for('books_show', book_id=book['id'], _method='PATCH') }}" enctype="application/x-www-form-urlencoded">
+<form class="book-card shadow mx-auto p-4" style="width: 20rem;" method="put" action="{{ url_for('books_show', book_id=book['id'], _method='PUT') }}" enctype="application/x-www-form-urlencoded">
     <label for="imgedit" class="form-label" placeholder="{{book['img']}}">Image src</label>
     <input type="text" class="form-control" name="img" id="imgedit" aria-describedby="imageSrc">
     <img src="{{ book['img'] }}" class="card-img-top" alt="...">
     <div class="card-body">
       <input type="hidden" name="book_id" value="{{book['id']}}">
       <label for="imgEdit" class="form-label">Title</label>
-      <input type="text" class="form-control" name="title" placeholder="{{ book['title'] }}" id="imgEdit" aria-describedby="imageSrc">
+      <input type="text" class="form-control" name="title" value="{{ book['title'] }}" id="imgEdit" aria-describedby="imageSrc">
       <label for="titleEdit" class="form-label">Author</label>
-      <input type="text" class="form-control" name="author" id="titleEdit" placeholder="{{ book['author'] }}" aria-describedby="title">
+      <input type="text" class="form-control" name="author" id="titleEdit" value="{{ book['author'] }}" aria-describedby="title">
       <label for="genreEdit" class="form-label">Genre</label>
-      <input type="text" class="form-control" name="genre" id="genreEdit" placeholder="{{ book['genre'] }}" aria-describedby="genre">
+      <input type="text" class="form-control" name="genre" id="genreEdit" value="{{ book['genre'] }}" aria-describedby="genre">
       <label for="typeEdit" class="form-label">Type</label>
-      <input type="text" class="form-control" name="type" id="typeEdit" placeholder="{{ book['type'] }}" aria-describedby="type">
+      <input type="text" class="form-control" name="type" id="typeEdit" value="{{ book['type'] }}" aria-describedby="type">
       <label for="statusEdit" class="form-label">Status</label>
-      <select class="form-select" name="status" aria-label="placeholder select example" id="statusEdit">
+      <select class="form-select" name="status" aria-label="select status" id="statusEdit">
         <option value="read" {% if book['status'] == 'read' %}selected{% endif %}>read</option>
         <option value="reading" {% if book['status'] == 'reading' %}selected{% endif %}>reading</option>
         <option value="unread" {% if book['status'] == 'unread' %}selected{% endif %}>unread</option>

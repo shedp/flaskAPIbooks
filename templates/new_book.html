@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    MyBooks | {{ book.title }}
+{% endblock title %}
+{% block heading %}
+    {{ book.title }}
+{% endblock heading %}
+{% block content %}
+<form class="book-card shadow mx-auto p-4" style="width: 20rem;" method="POST" action="/books" enctype="multipart/form-data">
+    <label for="img" class="form-label">Image src</label>
+    <input type="text" class="form-control" name="img" id="img" aria-describedby="imageSrc">
+    <div class="card-body">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" name="title" placeholder="Book Title" id="title" aria-describedby="imageSrc">
+      <label for="author" class="form-label">Author</label>
+      <input type="text" class="form-control" name="author" id="author" placeholder="Author" aria-describedby="title">
+      <label for="genre" class="form-label">Genre</label>
+      <input type="text" class="form-control" name="genre" id="genre" placeholder="Genre" aria-describedby="genre">
+      <label for="type" class="form-label">Type</label>
+      <input type="text" class="form-control" name="type" id="type" placeholder="type" aria-describedby="type">
+      <label for="status" class="form-label">Status</label>
+      <select class="form-select" name="status" aria-label="select status" id="status">
+        <option placeholder="read">read</option>
+        <option placeholder="reading">reading</option>
+        <option placeholder="unread" selected>unread</option>
+        <option placeholder="dropped">dropped</option>
+      </select>
+    </div>
+    <div class="options p-2">
+      <input type="submit" class="btn btn-primary mx-auto" id="typeEdit" value="Submit" aria-describedby="type">
+      <input type="button" class="btn btn-danger mx-auto" id="typeEdit" value="Cancel" aria-describedby="type">
+    </div>
+    </form>
+{% endblock content %}

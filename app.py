@@ -1,22 +1,16 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, redirect, url_for
+import json
+# ...
 from flask_cors import CORS
 from werkzeug import exceptions
 # from flask_navigation import Navigation
 
-import sys
-sys.path.append('..')
 from controllers import authors, books
 
 
 app = Flask(__name__)
 CORS(app)
-# nav = Navigation(app)
 
-# nav.Bar('top', [
-#     nav.Item('Home', 'home'),
-#     nav.Item('Books', 'books'),
-#     nav.Item('Author', 'author')
-# ])
 
 @app.route("/")
 def welcome():
@@ -28,20 +22,29 @@ def books_index():
         'GET': books.index,
         'POST': books.create
     }
-    resp, code = fns[request.method](request)
-    # return jsonify(resp), code
+    if request.method == 'POST':
+        title = request.form.get('title')
+        author = request.form.get('author')
+        genre = request.form.get('genre')
+        type = request.form.get('type')
+        status = request.form.get('status')
+        data = {'id': 0, 'title': title, 'author': author, 'genre':genre, 'type':type, 'status':status}
+        resp, code = fns[request.method](data)
+    else: 
+        resp, code = fns[request.method](request)
     return render_template('books.html', books=resp)
 
-@app.route('/books/<int:book_id>', methods=['GET', 'PATCH','DELETE'])
+@app.route('/books/<int:book_id>', methods=['GET', 'PUT','DELETE'])
 def books_show(book_id):
     fns = {
         'GET': books.show,
-        'PATCH': books.update,
+        'PUT': books.update,
         'DELETE': books.destroy
     }
     resp, code = fns[request.method](request, book_id)
-    # return jsonify(resp), code
-    if request.method == 'PATCH':
+    if request.method == 'PUT':
+        req = {'id':request.form['id']}
+        print(req)
         return redirect(url_for('books_show', book_id=book_id))
     return render_template('book.html', book=resp)
 
@@ -53,6 +56,16 @@ def book_edit(book_id):
     resp, code = fns[request.method](request, book_id)
     return render_template('edit_book.html', book=resp)
 
+@app.route('/books/new', methods=['GET','POST'])
+def book_new():
+    fns = {
+        'GET': books.index,
+        'POST': books.create,
+    }
+    resp, code = fns[request.method](request)
+    return render_template('new_book.html', book=resp)
+
+
 @app.route('/authors', methods=['GET','POST'])
 def authors_index():
     fns = {
@@ -60,15 +73,12 @@ def authors_index():
         'PATCH': authors.create
     }
     resp, code = fns[request.method](request)
-    # return jsonify(resp), code
     return render_template('authors.html', authors=resp)
 
-@app.route('/authors/<int:author_id>', methods=['GET','PATCH','DELETE'])
+@app.route('/authors/<int:author_id>', methods=['GET'])
 def author_show(author_id):
     fns = {
         'GET': authors.show,
-        'PATCH': authors.update,
-        'DELETE': authors.destroy
     }
     resp, code = fns[request.method](request, author_id)
     return jsonify(resp), code

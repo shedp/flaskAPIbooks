@@ -9,6 +9,7 @@ flask-cors = "*"
 werkzeug = "*"
 pandas = "*"
 flask-navigation = "*"
+matplotlib = "*"
 
 [dev-packages]
 

@@ -1,6 +1,7 @@
 # from data import books
 from werkzeug.exceptions import BadRequest
 from flask_study.data import data as books
+import json
 import sys
 sys.path.append('..')
 from data.data import books
@@ -8,8 +9,9 @@ from data.data import books
 def index(req):
     return [book for book in books], 200
 
-def create(req):
-    new_book = req.get_json()
+def create(book_data):
+    new_book = book_data
+    print(new_book)
     new_book['id'] = sorted([book['id'] for book in books])[-1] + 1
     books.append(new_book)
     return new_book, 201
